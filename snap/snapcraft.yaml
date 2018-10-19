@@ -11,7 +11,7 @@ architectures:
 
 apps:
   wasta-offline-setup:
-    command: desktop-launch wasta-offline-setup
+    command: desktop-launch $SNAP/usr/bin/wasta-offline-setup
     plugs:
       - home
       - removable-media
