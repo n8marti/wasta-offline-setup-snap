@@ -31,10 +31,9 @@ parts:
     plugin: nil
     organize:
       wasta-offline-setup: /usr/bin/wasta-offline-setup
-      after:
-        - add-ppa
-      stage-packages:
-        - wasta-offline-setup
+    after: [add-ppa]
+    stage-packages:
+      - wasta-offline-setup
 
   dpkg-dev:
     plugin: nil
