@@ -37,22 +37,28 @@ parts:
 
   dpkg-dev:
     plugin: nil
-#    organize:
-#      dpkg-scanpackages: /usr/bin/dpkg-scanpackages
+    organize:
+      usr/bin/dpkg-scanpackages: /usr/bin/dpkg-scanpackages
     stage-packages:
       - dpkg-dev
   
   rename:
     plugin: nil
+    organize:
+      usr/bin/rename: /usr/bin/rename
     stage-packages:
       - rename
   
   rsync:
     plugin: nil
+    organize:
+      usr/bin/rsync: /usr/bin/rsync
     stage-packages:
       - rsync
     
   zenity:
     plugin: nil
+    organize:
+      usr/bin/zenity: /usr/bin/zenity
     stage-packages:
       - zenity
