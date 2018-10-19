@@ -28,36 +28,36 @@ parts:
       
   wasta-offline-setup:
     plugin: nil
-    organize:
-      wasta-offline-setup: /usr/bin/wasta-offline-setup
+#    organize:
+#      usr/bin/wasta-offline-setup: bin/wasta-offline-setup
     after: [add-ppa, desktop-gtk3]
     stage-packages:
       - wasta-offline-setup
 
   dpkg-dev:
     plugin: nil
-    organize:
-      usr/bin/dpkg-scanpackages: bin/dpkg-scanpackages
+#    organize:
+#      usr/bin/dpkg-scanpackages: bin/dpkg-scanpackages
     stage-packages:
       - dpkg-dev
   
   rename:
     plugin: nil
-    organize:
-      usr/bin/rename: bin/rename
+#    organize:
+#      usr/bin/rename: bin/rename
     stage-packages:
       - rename
   
   rsync:
     plugin: nil
-    organize:
-      usr/bin/rsync: bin/rsync
+#    organize:
+#      usr/bin/rsync: bin/rsync
     stage-packages:
       - rsync
     
   zenity:
     plugin: nil
-    organize:
-      usr/bin/zenity: bin/zenity
+#    organize:
+#      usr/bin/zenity: bin/zenity
     stage-packages:
       - zenity
