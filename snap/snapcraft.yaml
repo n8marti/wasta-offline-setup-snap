@@ -11,7 +11,7 @@ architectures:
 
 apps:
   wasta-offline-setup:
-    command: wasta-offline-setup
+    command: desktop-launch wasta-offline-setup
     plugs:
       - home
       - removable-media
@@ -19,7 +19,6 @@ apps:
 parts:
   add-ppa:
     plugin: nil
-#    after: [desktop-qt4]
     override-build: |
       apt-get update
       apt-get install software-properties-common --yes
@@ -31,7 +30,7 @@ parts:
     plugin: nil
     organize:
       wasta-offline-setup: /usr/bin/wasta-offline-setup
-    after: [add-ppa]
+    after: [add-ppa, desktop-gtk3]
     stage-packages:
       - wasta-offline-setup
 
