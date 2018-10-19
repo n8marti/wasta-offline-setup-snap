@@ -1,1 +1,1 @@
-# wasta-offline-snap
+# wasta-offline-setup-snap
