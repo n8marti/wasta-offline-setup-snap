@@ -57,8 +57,10 @@ parts:
     
   zenity:
     plugin: nil
+    organize:
+      snap/*/current/usr/share/zenity/*: usr/share/zenity/
     stage-packages:
       - zenity
-    override-build: |
-      cp -r /usr/share/zenity $SNAP/usr/share/zenity
+#    override-build: |
+#      cp -r /usr/share/zenity $SNAP/usr/share/zenity
 
