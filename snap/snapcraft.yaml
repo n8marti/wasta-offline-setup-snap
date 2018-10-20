@@ -10,7 +10,7 @@ architectures:
   - amd64
 
 apps:
-  wasta-offline-setup:
+  test-wasta-offline-setup:
     command: desktop-launch $SNAP/usr/bin/wasta-offline-setup
     plugs:
       - home
@@ -58,6 +58,6 @@ parts:
   zenity:
     plugin: nil
     organize:
-      $SNAP/usr/share/zenity: usr/share/zenity
+      usr/share/zenity: usr/share/zenity
     stage-packages:
       - zenity
