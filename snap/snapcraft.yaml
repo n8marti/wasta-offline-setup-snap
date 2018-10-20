@@ -12,6 +12,8 @@ architectures:
 apps:
   test-wasta-offline-setup:
     command: desktop-launch $SNAP/usr/bin/wasta-offline-setup
+    environment:
+      $PATH: $PATH:$SNAP/usr/bin/
     plugs:
       - home
       - removable-media
@@ -56,11 +58,22 @@ parts:
       - rsync
     
   zenity:
-    plugin: nil
-    organize:
-      snap/*/current/usr/share/zenity/*: usr/share/zenity/
-    stage-packages:
-      - zenity
-#    override-build: |
-#      cp -r /usr/share/zenity $SNAP/usr/share/zenity
-
+    # This magic courtesy of a snapcraft post by oSoMoN at
+    # https://forum.snapcraft.io/t/zenity-dialogs-in-a-snap/6359
+    source: https://gitlab.gnome.org/GNOME/zenity.git
+    source-tag: 3.28.1
+    plugin: autotools
+    configflags:
+      - --disable-libnotify
+      - --disable-webkitgtk
+    build-packages:
+      - gnome-pkg-tools
+      - gnome-common
+      - yelp-tools
+      - gettext
+      - libglib2.0-dev
+      - libgtk-3-dev
+    override-build: |
+      set -eux
+      patch -d . -p1 < ../../../snap/zenity-ui-snap-aware.patch
+      snapcraftctl build
