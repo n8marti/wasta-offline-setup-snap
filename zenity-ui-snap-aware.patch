@@ -1,0 +1,31 @@
+diff --git a/src/util.c b/src/util.c
+index 0c10186..86c24a6 100644
+--- a/src/util.c
++++ b/src/util.c
+@@ -58,6 +58,8 @@ zenity_util_load_ui_file (const gchar *root_widget, ...) {
+ 	GError *error = NULL;
+ 	gchar **objects;
+ 	guint result = 0;
++	const gchar *env_var = NULL;
++	const gchar *zenity_ui_file_fullpath = NULL;
+ 
+ 	gtk_builder_set_translation_domain (builder, GETTEXT_PACKAGE);
+ 
+@@ -86,9 +88,16 @@ zenity_util_load_ui_file (const gchar *root_widget, ...) {
+ 			builder, ZENITY_UI_FILE_RELATIVEPATH, objects, NULL);
+ 	}
+ 
+-	if (result == 0)
++	if (result == 0) {
++		env_var = g_getenv ("SNAP");
++		if (env_var)
++			zenity_ui_file_fullpath = g_strconcat (env_var, ZENITY_UI_FILE_FULLPATH, NULL);
++		else
++			zenity_ui_file_fullpath = g_strdup (ZENITY_UI_FILE_FULLPATH);
+ 		result = gtk_builder_add_objects_from_file (
+-			builder, ZENITY_UI_FILE_FULLPATH, objects, &error);
++			builder, zenity_ui_file_fullpath, objects, &error);
++		g_free (zenity_ui_file_fullpath);
++    }
+ 
+ 	g_strfreev (objects);
