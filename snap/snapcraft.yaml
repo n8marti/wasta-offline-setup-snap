@@ -58,6 +58,6 @@ parts:
   zenity:
     plugin: nil
     organize:
-      usr/share/zenity: $SNAP/usr/share/zenity
+      $SNAP/usr/share/zenity: usr/share/zenity
     stage-packages:
       - zenity
