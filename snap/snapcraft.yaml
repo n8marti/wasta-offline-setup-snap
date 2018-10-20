@@ -30,7 +30,7 @@ parts:
     plugin: nil
 #    organize:
 #      usr/bin/wasta-offline-setup: bin/wasta-offline-setup
-    after: [add-ppa, desktop-gtk3]
+    after: [add-ppa, zenity, desktop-gtk3]
     stage-packages:
       - wasta-offline-setup
 
