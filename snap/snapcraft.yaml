@@ -17,53 +17,54 @@ apps:
       - home
       - removable-media
 
-parts:
-  add-ppa:
-    plugin: nil
-    override-build: |
-      apt-get update
-      apt-get install software-properties-common --yes
-      add-apt-repository --yes ppa:wasta-linux/wasta-apps
-      apt-get update
-      apt-get upgrade
+#parts:
+#  add-ppa:
+#    plugin: nil
+#    override-build: |
+#      apt-get update
+#      apt-get install software-properties-common --yes
+#      add-apt-repository --yes ppa:wasta-linux/wasta-apps
+#      apt-get update
+#      apt-get upgrade
       
-  wasta-offline-setup:
-    plugin: nil
+#  wasta-offline-setup:
+#    plugin: nil
 #    organize:
 #      usr/bin/wasta-offline-setup: bin/wasta-offline-setup
-    after: [add-ppa, zenity, desktop-gtk3]
-    stage-packages:
-      - wasta-offline-setup
+#    after: [add-ppa, zenity, desktop-gtk3]
+#    stage-packages:
+#      - wasta-offline-setup
 
-  dpkg-dev:
-    plugin: nil
+#  dpkg-dev:
+#    plugin: nil
 # Make available manually (right now it's helpfully moved by snapcraft):
 # usr/lib/x86_64-linux-gnu/libdb-5.3.so
 #    organize:
 #      usr/bin/dpkg-scanpackages: bin/dpkg-scanpackages
-    stage-packages:
-      - dpkg-dev
+#    stage-packages:
+#      - dpkg-dev
   
-  rename:
-    plugin: nil
+#  rename:
+#    plugin: nil
 #    organize:
 #      usr/bin/rename: bin/rename
-    stage-packages:
-      - rename
+#    stage-packages:
+#      - rename
   
-  rsync:
-    plugin: nil
+#  rsync:
+#    plugin: nil
 # Make available manually:
 # usr/lib/x86_64-linux-gnu/libgtk-3.so.0
 #    organize:
 #      usr/bin/rsync: bin/rsync
-    stage-packages:
-      - rsync
+#    stage-packages:
+#      - rsync
     
   zenity:
     # This magic courtesy of a snapcraft post by oSoMoN at
     # https://forum.snapcraft.io/t/zenity-dialogs-in-a-snap/6359
-    source: https://gitlab.gnome.org/GNOME/zenity/-/archive/gnome-3-28/zenity-gnome-3-28.zip
+    after: [desktop-gtk3]
+    source: https://gitlab.gnome.org/GNOME/zenity.git
     source-tag: 3.28.1
     plugin: autotools
     configflags:
