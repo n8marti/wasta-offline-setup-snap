@@ -63,8 +63,8 @@ parts:
   zenity:
     # This magic courtesy of a snapcraft post by oSoMoN at
     # https://forum.snapcraft.io/t/zenity-dialogs-in-a-snap/6359
-    source: https://gitlab.gnome.org/GNOME/zenity.git
-    source-tag: 3.28.1
+    source: https://gitlab.gnome.org/GNOME/zenity/-/archive/gnome-3-28/zenity-gnome-3-28.zip
+#    source-tag: 3.28.1
     plugin: autotools
     configflags:
       - --disable-libnotify
