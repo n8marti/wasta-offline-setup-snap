@@ -11,7 +11,7 @@ architectures:
 
 apps:
   test-wasta-offline-setup:
-    command: desktop-launch $SNAP/usr/bin/wasta-offline-setup
+    command: desktop-launch bash $SNAP/usr/bin/wasta-offline-setup
 #    command: desktop-launch zenity --info
     plugs:
       - home
