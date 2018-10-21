@@ -11,29 +11,29 @@ architectures:
 
 apps:
   test-wasta-offline-setup:
-#    command: desktop-launch $SNAP/usr/bin/wasta-offline-setup
-    command: desktop-launch zenity --info
+    command: desktop-launch $SNAP/usr/bin/wasta-offline-setup
+#    command: desktop-launch zenity --info
     plugs:
       - home
       - removable-media
 
 parts:
-#  add-ppa:
-#    plugin: nil
-#    override-build: |
-#      apt-get update
-#      apt-get install software-properties-common --yes
-#      add-apt-repository --yes ppa:wasta-linux/wasta-apps
+  add-ppa:
+    plugin: nil
+    override-build: |
+      apt-get update
+      apt-get install software-properties-common --yes
+      add-apt-repository --yes ppa:wasta-linux/wasta-apps
 #      apt-get update
 #      apt-get upgrade
       
-#  wasta-offline-setup:
-#    plugin: nil
+  wasta-offline-setup:
+    plugin: nil
 #    organize:
 #      usr/bin/wasta-offline-setup: bin/wasta-offline-setup
-#    after: [add-ppa, zenity, desktop-gtk3]
-#    stage-packages:
-#      - wasta-offline-setup
+    after: [add-ppa, zenity]
+    stage-packages:
+      - wasta-offline-setup
 
 #  dpkg-dev:
 #    plugin: nil
