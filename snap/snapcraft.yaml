@@ -17,7 +17,7 @@ apps:
       - home
       - removable-media
 
-#parts:
+parts:
 #  add-ppa:
 #    plugin: nil
 #    override-build: |
