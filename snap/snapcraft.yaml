@@ -11,7 +11,8 @@ architectures:
 
 apps:
   test-wasta-offline-setup:
-    command: desktop-launch $SNAP/usr/bin/wasta-offline-setup
+#    command: desktop-launch $SNAP/usr/bin/wasta-offline-setup
+    command: desktop-launch zenity --info
     plugs:
       - home
       - removable-media
@@ -36,6 +37,8 @@ parts:
 
   dpkg-dev:
     plugin: nil
+# Make available manually (right now it's helpfully moved by snapcraft):
+# usr/lib/x86_64-linux-gnu/libdb-5.3.so
 #    organize:
 #      usr/bin/dpkg-scanpackages: bin/dpkg-scanpackages
     stage-packages:
@@ -50,6 +53,8 @@ parts:
   
   rsync:
     plugin: nil
+# Make available manually:
+# usr/lib/x86_64-linux-gnu/libgtk-3.so.0
 #    organize:
 #      usr/bin/rsync: bin/rsync
     stage-packages:
