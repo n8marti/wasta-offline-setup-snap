@@ -32,6 +32,8 @@ parts:
 #    organize:
 #      usr/bin/wasta-offline-setup: bin/wasta-offline-setup
     after: [add-ppa, zenity]
+    organize:
+      
     stage-packages:
       - wasta-offline-setup
 
