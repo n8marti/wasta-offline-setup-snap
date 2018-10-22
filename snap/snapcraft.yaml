@@ -59,25 +59,43 @@ parts:
 #      usr/bin/rsync: bin/rsync
 #    stage-packages:
 #      - rsync
-    
+
+# Substituting yad for zenity, courtesy of @galgalesh.
+# https://forum.snapcraft.io/t/winesnap-creating-snaps-for-windows-applications/6392
   zenity:
+    plugin: dump
+    build-attributes:
+      - no-system-libraries
+    source: snap/scripts
+    organize:
+      'zenity': bin/
+    stage-packages:
+      - libgdk-pixbuf2.0-0 # yad
+      - libgtk-3-0         # yad
+      - libnotify4         # yad
+      - yad
+      
+# ===========================================================================
+#  zenity:
     # This magic courtesy of a snapcraft post by oSoMoN at
     # https://forum.snapcraft.io/t/zenity-dialogs-in-a-snap/6359
-    after: [desktop-gtk3]
-    source: https://gitlab.gnome.org/GNOME/zenity.git
-    source-tag: 3.28.1
-    plugin: autotools
-    configflags:
-      - --disable-libnotify
-      - --disable-webkitgtk
-    build-packages:
-      - gnome-pkg-tools
-      - gnome-common
-      - yelp-tools
-      - gettext
-      - libglib2.0-dev
-      - libgtk-3-dev
-    override-build: |
-      set -eux
-      patch -d . -p1 < ../../../snap/zenity-ui-snap-aware.patch
-      snapcraftctl build
+    # It only works when zenity is called directly; not when called from a script.
+#    after: [desktop-gtk3]
+#    source: https://gitlab.gnome.org/GNOME/zenity.git
+#    source-tag: 3.28.1
+#    plugin: autotools
+#    configflags:
+#      - --disable-libnotify
+#      - --disable-webkitgtk
+#    build-packages:
+#      - gnome-pkg-tools
+#      - gnome-common
+#      - yelp-tools
+#      - gettext
+#      - libglib2.0-dev
+#      - libgtk-3-dev
+#    override-build: |
+#      set -eux
+#      patch -d . -p1 < ../../../snap/zenity-ui-snap-aware.patch
+#      snapcraftctl build
+# ===========================================================================
