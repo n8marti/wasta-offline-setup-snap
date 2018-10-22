@@ -13,6 +13,7 @@ apps:
   test-wasta-offline-setup:
     command: desktop-launch $SNAP/usr/bin/wasta-offline-setup
     plugs:
+      - desktop
       - home
       - removable-media
 
@@ -21,6 +22,7 @@ apps:
 #   - need access to read from cache at [/var/lib/snapd/hostfs]/var/cache/apt/archives
 #     https://forum.snapcraft.io/t/classic-confinement-request-for-hashit/3568/4
 #   - don't seem to need rsync? or did it just use the system's version?
+#   - create patch file to add check for $SNAP in 'env' or 'printenv'
 
 parts:
   add-ppa:
@@ -40,9 +42,6 @@ parts:
       - rename
       - rsync
       - dpkg-dev
-    override-build: |
-      apt-get purge zenity --yes
-      apt-get purge perl --yes
 
 
 #  dpkg-dev:
@@ -110,3 +109,15 @@ parts:
 #      patch -d . -p1 < ../../../snap/zenity-ui-snap-aware.patch
 #      snapcraftctl build
 # ===========================================================================
+
+  cleanup:
+    plugin: nil
+    after: [wasta-offline-setup]
+    override-build: |
+      rm -rf /usr/bin/gdialog
+      rm -rf /usr/bin/zenity
+      rm -rf /usr/share/doc/zenity*
+      rm -rf /usr/share/help/*/zenity
+      rm -rf /usr/share/man/man1/zenity*
+      rm -rf /usr/share/zenity
+      apt-get purge perl --yes
