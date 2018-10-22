@@ -12,14 +12,14 @@ architectures:
 apps:
   test-wasta-offline-setup:
     command: desktop-launch $SNAP/usr/bin/wasta-offline-setup
-#    command: desktop-launch zenity --info
     plugs:
       - home
       - removable-media
 
 # TODO:
 #   - need lsb_release command
-#   - need access to /var/cache/apt/archives
+#   - need access to read from cache at [/var/lib/snapd/hostfs]/var/cache/apt/archives
+#     https://forum.snapcraft.io/t/classic-confinement-request-for-hashit/3568/4
 #   - don't seem to need rsync? or did it just use the system's version?
 
 parts:
@@ -36,7 +36,7 @@ parts:
     stage-packages:
       - wasta-offline-setup
       # - libdb5.3 # otherwise pulled from host
-      - lsb_release
+      - lsb-release
       - rename
       - rsync
       - dpkg-dev
