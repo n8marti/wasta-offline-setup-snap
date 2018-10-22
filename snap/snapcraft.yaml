@@ -17,6 +17,11 @@ apps:
       - home
       - removable-media
 
+# TODO:
+#   - need lsb_release command
+#   - need access to /var/cache/apt/archives
+#   - don't seem to need rsync? or did it just use the system's version?
+
 parts:
   add-ppa:
     plugin: nil
@@ -24,18 +29,21 @@ parts:
       apt-get update
       apt-get install software-properties-common --yes
       add-apt-repository --yes ppa:wasta-linux/wasta-apps
-#      apt-get update
-#      apt-get upgrade
       
   wasta-offline-setup:
     plugin: nil
-#    organize:
-#      usr/bin/wasta-offline-setup: bin/wasta-offline-setup
     after: [add-ppa, zenity]
-    organize:
-      usr/bin/zenity: zenity
     stage-packages:
       - wasta-offline-setup
+      # - libdb5.3 # otherwise pulled from host
+      - lsb_release
+      - rename
+      - rsync
+      - dpkg-dev
+    override-build: |
+      apt-get purge zenity --yes
+      apt-get purge perl --yes
+
 
 #  dpkg-dev:
 #    plugin: nil
