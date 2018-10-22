@@ -33,7 +33,7 @@ parts:
 #      usr/bin/wasta-offline-setup: bin/wasta-offline-setup
     after: [add-ppa, zenity]
     organize:
-      
+      usr/bin/zenity: zenity
     stage-packages:
       - wasta-offline-setup
 
