@@ -41,9 +41,9 @@ parts:
     organize:
       zenity: bin/zenity
       wasta-offline-setup: bin/wasta-offline-setup
-#    prime:
-#      - bin/zenity
-#      - bin/wasta-offline-setup
+    prime:
+      - bin/zenity
+      - bin/wasta-offline-setup
     build-attributes:
       - no-system-libraries
     stage-packages:
