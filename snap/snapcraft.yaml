@@ -35,9 +35,11 @@ parts:
   wasta-offline-setup:
     plugin: nil
     after: [add-ppa, zenity]
+    organize:
+      usr/bin/zenity: zenity # get real zenity out of PATH
     stage-packages:
       - wasta-offline-setup
-      # - libdb5.3 # otherwise pulled from host
+      - libdb5.3 # otherwise pulled from host
       - lsb-release
       - rename
       - rsync
