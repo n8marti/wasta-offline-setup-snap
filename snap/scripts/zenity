@@ -1,3 +1,3 @@
 #!/bin/bash
 
-exec $SNAP/usr/bin/yad "$@"
+exec $SNAP/usr/bin/yad "$@" 2>/dev/null
