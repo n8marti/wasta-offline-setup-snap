@@ -12,24 +12,15 @@ architectures:
 apps:
   test-wasta-offline-setup:
     command: desktop-launch $SNAP/bin/wasta-offline-setup
+    environment:
+#      PERL5LIB: "$SNAP/usr/lib/x86_64-linux-gnu/perl-base/:$SNAP/usr/lib/x86_64-linux-gnu/perl5/5.22/:$SNAP/usr/share/perl5/:$SNAP/usr/share/perl/5.22.1/:$SNAP/usr/lib/x86_64-linux-gnu/perl/5.22/:$SNAP/usr/lib/x86_64-linux-gnu/perl/5.22.1/"
+      PERL5LIB: "$SNAP/usr/share/perl5/:$SNAP/usr/share/perl/5.22.1/:$SNAP/usr/lib/x86_64-linux-gnu/perl/5.22/:$SNAP/usr/lib/x86_64-linux-gnu/perl/5.22.1/:$SNAP/usr/lib/x86_64-linux-gnu/perl/5.22/"
     plugs:
       - desktop
       - home
       - removable-media
 
-# TODO:
-#   - need access to read from cache at [/var/lib/snapd/hostfs]/var/cache/apt/archives
-#     https://forum.snapcraft.io/t/classic-confinement-request-for-hashit/3568/4
-#   - create patch file to add check for $SNAP in 'env' or 'printenv'
-
 parts:
-#  add-ppa:
-#    plugin: nil
-#    override-build: |
-#      apt-get update
-#      apt-get install software-properties-common --yes
-#      add-apt-repository --yes ppa:wasta-linux/wasta-apps
-
   add-pkgs:
     plugin: nil
     stage-packages:
@@ -43,12 +34,10 @@ parts:
       - libnotify4              # yad
       - yad      
 
+  # Substituting yad for zenity, courtesy of @galgalesh.
+  # https://forum.snapcraft.io/t/winesnap-creating-snaps-for-windows-applications/6392
   wasta-offline-setup:
     after: [desktop-gtk3, add-pkgs]
-#    after: [add-ppa, zenity]
-#    plugin: nil
-#    organize:
-#      usr/bin/zenity: zenity    # get real zenity out of PATH
     plugin: dump
     source: snap/scripts
     organize:
@@ -59,72 +48,3 @@ parts:
       - bin/wasta-offline-setup
     build-attributes:
       - no-system-libraries
-#    stage-packages:
-#      - wasta-offline-setup
-#      - libdb5.3                # otherwise pulled from host
-#      - lsb-release
-#      - rename
-#      - rsync
-#      - dpkg-dev
-#      - libgdk-pixbuf2.0-0      # yad
-#      - libgtk-3-0              # yad
-#      - libnotify4              # yad
-#      - yad
-#    prime:
-#      - -usr/bin/gdialog
-#      - -usr/bin/zenity
-#      - -usr/share/doc/zenity*
-#      - -usr/share/help/*/zenity
-#      - -usr/share/man/man1/zenity*
-#      - -usr/share/zenity
-
-# Substituting yad for zenity, courtesy of @galgalesh.
-# https://forum.snapcraft.io/t/winesnap-creating-snaps-for-windows-applications/6392
-#  zenity:
-#    after: [desktop-gtk3]
-#    plugin: dump
-#    source: snap/scripts
-#    organize:
-#      zenity: bin/zenity
-#    prime:
-#      - bin/zenity
-#    build-attributes:
-#      - no-system-libraries
-
-      
-# ===========================================================================
-#  zenity:
-    # This magic courtesy of a snapcraft post by oSoMoN at
-    # https://forum.snapcraft.io/t/zenity-dialogs-in-a-snap/6359
-    # It only works when zenity is called directly; not when called from a script.
-#    after: [desktop-gtk3]
-#    source: https://gitlab.gnome.org/GNOME/zenity.git
-#    source-tag: 3.28.1
-#    plugin: autotools
-#    configflags:
-#      - --disable-libnotify
-#      - --disable-webkitgtk
-#    build-packages:
-#      - gnome-pkg-tools
-#      - gnome-common
-#      - yelp-tools
-#      - gettext
-#      - libglib2.0-dev
-#      - libgtk-3-dev
-#    override-build: |
-#      set -eux
-#      patch -d . -p1 < ../../../snap/zenity-ui-snap-aware.patch
-#      snapcraftctl build
-# ===========================================================================
-
-#  cleanup:
-#    plugin: nil
-#    after: [wasta-offline-setup]
-#    override-build: |
-#      rm -rf /usr/bin/gdialog
-#      rm -rf /usr/bin/zenity
-#      rm -rf /usr/share/doc/zenity*
-#      rm -rf /usr/share/help/*/zenity
-#      rm -rf /usr/share/man/man1/zenity*
-#      rm -rf /usr/share/zenity
-#      apt-get purge perl --yes
