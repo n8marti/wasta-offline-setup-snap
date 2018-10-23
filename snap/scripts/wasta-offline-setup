@@ -644,13 +644,13 @@ fi
 # If /usr/bin/snap exists, then snapd & at least some seeded snaps are installed.
 #   wasta-offline-snap-setup will use its own log file, but there should at
 #   least be some mention of it in the wasta-offline-setup log.
-if [[ -x /usr/bin/snap ]]; then
-    echo | tee -a "$LOG"
-    echo $(date +%T) $HOST "wasta-offline-snap-setup started." | tee -a "$LOG"
-    echo "Its log file can be found in $WO_LOC/log/wasta-offline-snap-setup" | tee -a "$LOG"
-    echo | tee -a "$LOG"
-    sudo "$BASE"/wasta-offline-snap-setup "$WO_LOC"
-fi
+#if [[ -x /usr/bin/snap ]]; then
+#    echo | tee -a "$LOG"
+#    echo $(date +%T) $HOST "wasta-offline-snap-setup started." | tee -a "$LOG"
+#    echo "Its log file can be found in $WO_LOC/log/wasta-offline-snap-setup" | tee -a "$LOG"
+#    echo | tee -a "$LOG"
+#    sudo "$BASE"/wasta-offline-snap-setup "$WO_LOC"
+#fi
 
 echo | tee -a "$LOG"
 echo "--------------------------------------------------------" | tee -a "$LOG"
