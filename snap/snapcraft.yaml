@@ -29,9 +29,22 @@ parts:
 #      apt-get update
 #      apt-get install software-properties-common --yes
 #      add-apt-repository --yes ppa:wasta-linux/wasta-apps
-      
+
+  add-pkgs:
+    plugin: nil
+    stage-packages:
+      - libdb5.3                # otherwise pulled from host
+      - lsb-release
+      - rename
+      - rsync
+      - dpkg-dev
+      - libgdk-pixbuf2.0-0      # yad
+      - libgtk-3-0              # yad
+      - libnotify4              # yad
+      - yad      
+
   wasta-offline-setup:
-    after: [desktop-gtk3]
+    after: [desktop-gtk3, add-pkgs]
 #    after: [add-ppa, zenity]
 #    plugin: nil
 #    organize:
@@ -46,17 +59,17 @@ parts:
       - bin/wasta-offline-setup
     build-attributes:
       - no-system-libraries
-    stage-packages:
+#    stage-packages:
 #      - wasta-offline-setup
-      - libdb5.3                # otherwise pulled from host
-      - lsb-release
-      - rename
-      - rsync
-      - dpkg-dev
-      - libgdk-pixbuf2.0-0      # yad
-      - libgtk-3-0              # yad
-      - libnotify4              # yad
-      - yad
+#      - libdb5.3                # otherwise pulled from host
+#      - lsb-release
+#      - rename
+#      - rsync
+#      - dpkg-dev
+#      - libgdk-pixbuf2.0-0      # yad
+#      - libgtk-3-0              # yad
+#      - libnotify4              # yad
+#      - yad
 #    prime:
 #      - -usr/bin/gdialog
 #      - -usr/bin/zenity
@@ -64,32 +77,6 @@ parts:
 #      - -usr/share/help/*/zenity
 #      - -usr/share/man/man1/zenity*
 #      - -usr/share/zenity
-
-
-#  dpkg-dev:
-#    plugin: nil
-# Make available manually (right now it's helpfully moved by snapcraft):
-# usr/lib/x86_64-linux-gnu/libdb-5.3.so
-#    organize:
-#      usr/bin/dpkg-scanpackages: bin/dpkg-scanpackages
-#    stage-packages:
-#      - dpkg-dev
-  
-#  rename:
-#    plugin: nil
-#    organize:
-#      usr/bin/rename: bin/rename
-#    stage-packages:
-#      - rename
-  
-#  rsync:
-#    plugin: nil
-# Make available manually:
-# usr/lib/x86_64-linux-gnu/libgtk-3.so.0
-#    organize:
-#      usr/bin/rsync: bin/rsync
-#    stage-packages:
-#      - rsync
 
 # Substituting yad for zenity, courtesy of @galgalesh.
 # https://forum.snapcraft.io/t/winesnap-creating-snaps-for-windows-applications/6392
