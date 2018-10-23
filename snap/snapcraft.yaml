@@ -9,9 +9,6 @@ confinement: devmode # use 'strict' once you have the right plugs and slots
 architectures:
   - amd64
 
-# TODO:
-#   - can't look at log (presented with font selection instead)
-
 apps:
   test-wasta-offline-setup:
     command: desktop-launch $SNAP/bin/wasta-offline-setup
@@ -37,7 +34,9 @@ parts:
       - libgdk-pixbuf2.0-0      # yad
       - libgtk-3-0              # yad
       - libnotify4              # yad
-      - yad      
+      - yad
+    prime:
+      - -usr/lib/locale
 
   # Substituting yad for zenity, courtesy of @galgalesh.
   # https://forum.snapcraft.io/t/winesnap-creating-snaps-for-windows-applications/6392
@@ -53,7 +52,3 @@ parts:
       - bin/zenity
       - bin/wasta-offline-setup
       - usr/share/applications/wasta-offline-setup-s.desktop
-      - -usr/lib/locale
-#    build-attributes:
-#      apparently deprecated: https://forum.snapcraft.io/t/snapcraft-yaml-reference/4276
-#      - no-system-libraries
