@@ -16,8 +16,10 @@ apps:
     environment:
       PERL5LIB: "$SNAP/usr/share/perl5/:$SNAP/usr/share/perl/5.22.1/:$SNAP/usr/lib/x86_64-linux-gnu/perl/5.22/:$SNAP/usr/lib/x86_64-linux-gnu/perl/5.22.1/:$SNAP/usr/lib/x86_64-linux-gnu/perl/5.22/"
     plugs:
-      #- desktop
-      #- home
+      - desktop
+      - desktop-legacy
+      - unity7
+      - home
       - removable-media
 
 parts:
@@ -35,8 +37,6 @@ parts:
       - libgtk-3-0              # yad
       - libnotify4              # yad
       - yad
-    prime:
-      - -usr/lib/locale
 
   # Substituting yad for zenity, courtesy of @galgalesh.
   # https://forum.snapcraft.io/t/winesnap-creating-snaps-for-windows-applications/6392
