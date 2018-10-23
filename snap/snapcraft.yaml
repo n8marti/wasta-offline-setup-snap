@@ -18,10 +18,8 @@ apps:
       - removable-media
 
 # TODO:
-#   - need lsb_release command
 #   - need access to read from cache at [/var/lib/snapd/hostfs]/var/cache/apt/archives
 #     https://forum.snapcraft.io/t/classic-confinement-request-for-hashit/3568/4
-#   - don't seem to need rsync? or did it just use the system's version?
 #   - create patch file to add check for $SNAP in 'env' or 'printenv'
 
 parts:
@@ -33,17 +31,28 @@ parts:
       add-apt-repository --yes ppa:wasta-linux/wasta-apps
       
   wasta-offline-setup:
-    plugin: nil
     after: [add-ppa, zenity]
+    plugin: nil
     organize:
-      usr/bin/zenity: zenity # get real zenity out of PATH
+      usr/bin/zenity: zenity    # get real zenity out of PATH
     stage-packages:
       - wasta-offline-setup
-      - libdb5.3 # otherwise pulled from host
+      - libdb5.3                # otherwise pulled from host
       - lsb-release
       - rename
       - rsync
       - dpkg-dev
+      - libgdk-pixbuf2.0-0      # yad
+      - libgtk-3-0              # yad
+      - libnotify4              # yad
+      - yad
+    prime:
+      - -usr/bin/gdialog
+      - -usr/bin/zenity
+      - -usr/share/doc/zenity*
+      - -usr/share/help/*/zenity
+      - -usr/share/man/man1/zenity*
+      - -usr/share/zenity
 
 
 #  dpkg-dev:
@@ -74,18 +83,16 @@ parts:
 # Substituting yad for zenity, courtesy of @galgalesh.
 # https://forum.snapcraft.io/t/winesnap-creating-snaps-for-windows-applications/6392
   zenity:
-    plugin: dump
-    build-attributes:
-      - no-system-libraries
     after: [desktop-gtk3]
+    plugin: dump
     source: snap/scripts
     organize:
-      'zenity': bin/
-    stage-packages:
-      - libgdk-pixbuf2.0-0 # yad
-      - libgtk-3-0         # yad
-      - libnotify4         # yad
-      - yad
+      zenity: bin/zenity
+    prime:
+      - bin/zenity
+    build-attributes:
+      - no-system-libraries
+
       
 # ===========================================================================
 #  zenity:
@@ -112,14 +119,14 @@ parts:
 #      snapcraftctl build
 # ===========================================================================
 
-  cleanup:
-    plugin: nil
-    after: [wasta-offline-setup]
-    override-build: |
-      rm -rf /usr/bin/gdialog
-      rm -rf /usr/bin/zenity
-      rm -rf /usr/share/doc/zenity*
-      rm -rf /usr/share/help/*/zenity
-      rm -rf /usr/share/man/man1/zenity*
-      rm -rf /usr/share/zenity
-      apt-get purge perl --yes
+#  cleanup:
+#    plugin: nil
+#    after: [wasta-offline-setup]
+#    override-build: |
+#      rm -rf /usr/bin/gdialog
+#      rm -rf /usr/bin/zenity
+#      rm -rf /usr/share/doc/zenity*
+#      rm -rf /usr/share/help/*/zenity
+#      rm -rf /usr/share/man/man1/zenity*
+#      rm -rf /usr/share/zenity
+#      apt-get purge perl --yes
