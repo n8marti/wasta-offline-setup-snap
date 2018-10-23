@@ -5,7 +5,7 @@ description: |
   Set up a Wasta-Offline 'local cache repository'
 
 grade: devel # must be 'stable' to release into candidate/stable channels
-confinement: devmode # use 'strict' once you have the right plugs and slots
+confinement: strict # devmode # use 'strict' once you have the right plugs and slots
 architectures:
   - amd64
 
