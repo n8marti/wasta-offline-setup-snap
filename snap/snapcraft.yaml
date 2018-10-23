@@ -19,8 +19,11 @@ apps:
       - desktop
       - desktop-legacy
       - unity7
+      - gsettings
       - home
       - removable-media
+      - mount-observe
+      #- hostname-control # is there a hostname-observe?
 
 parts:
   add-pkgs:
