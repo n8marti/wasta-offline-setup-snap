@@ -9,6 +9,10 @@ confinement: devmode # use 'strict' once you have the right plugs and slots
 architectures:
   - amd64
 
+# TODO:
+#   - rename command not found in spite of installed package
+#   - can't look at log (presented with font selection instead)
+
 apps:
   test-wasta-offline-setup:
     command: desktop-launch $SNAP/bin/wasta-offline-setup
@@ -23,6 +27,8 @@ apps:
 parts:
   add-pkgs:
     plugin: nil
+    organize:
+      usr/bin/file-rename: bin/rename
     stage-packages:
       - libdb5.3                # otherwise pulled from host
       - lsb-release
