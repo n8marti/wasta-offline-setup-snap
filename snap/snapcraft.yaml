@@ -10,18 +10,17 @@ architectures:
   - amd64
 
 # TODO:
-#   - rename command not found in spite of installed package
 #   - can't look at log (presented with font selection instead)
 
 apps:
   test-wasta-offline-setup:
     command: desktop-launch $SNAP/bin/wasta-offline-setup
+    desktop: usr/share/applications/wasta-offline-setup-s.desktop
     environment:
-#      PERL5LIB: "$SNAP/usr/lib/x86_64-linux-gnu/perl-base/:$SNAP/usr/lib/x86_64-linux-gnu/perl5/5.22/:$SNAP/usr/share/perl5/:$SNAP/usr/share/perl/5.22.1/:$SNAP/usr/lib/x86_64-linux-gnu/perl/5.22/:$SNAP/usr/lib/x86_64-linux-gnu/perl/5.22.1/"
       PERL5LIB: "$SNAP/usr/share/perl5/:$SNAP/usr/share/perl/5.22.1/:$SNAP/usr/lib/x86_64-linux-gnu/perl/5.22/:$SNAP/usr/lib/x86_64-linux-gnu/perl/5.22.1/:$SNAP/usr/lib/x86_64-linux-gnu/perl/5.22/"
     plugs:
-      - desktop
-      - home
+      #- desktop
+      #- home
       - removable-media
 
 parts:
@@ -49,8 +48,10 @@ parts:
     organize:
       zenity: bin/zenity
       wasta-offline-setup: bin/wasta-offline-setup
+      wasta-offline-setup.desktop: usr/share/applications/wasta-offline-setup-s.desktop
     prime:
       - bin/zenity
       - bin/wasta-offline-setup
+      - usr/share/applications/wasta-offline-setup-s.desktop
     build-attributes:
       - no-system-libraries
