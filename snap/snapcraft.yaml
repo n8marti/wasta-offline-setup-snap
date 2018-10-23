@@ -53,5 +53,7 @@ parts:
       - bin/zenity
       - bin/wasta-offline-setup
       - usr/share/applications/wasta-offline-setup-s.desktop
-    build-attributes:
-      - no-system-libraries
+      - -usr/lib/locale
+#    build-attributes:
+#      apparently deprecated: https://forum.snapcraft.io/t/snapcraft-yaml-reference/4276
+#      - no-system-libraries
