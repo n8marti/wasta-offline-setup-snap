@@ -674,7 +674,8 @@ if [ $? -eq 0 ];
 then
   #user said YES: show log
   zenity --text-info --title="wasta [Offline] Setup: Log" --width=650 \
-    --height=500 --no-wrap --filename="$LOG" --font="Ubuntu Mono" \
+    --height=500 --no-wrap --filename="$LOG" \
+    #--font="Ubuntu Mono" \
     --window-icon=/usr/share/icons/hicolor/64x64/apps/wasta-offline.png 2>/dev/null
 fi
 
