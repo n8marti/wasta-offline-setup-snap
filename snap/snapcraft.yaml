@@ -52,6 +52,7 @@ parts:
       zenity: bin/zenity
       wasta-offline-setup: bin/wasta-offline-setup
       wasta-offline-setup.desktop: usr/share/applications/wasta-offline-setup-s.desktop
+      wasta-offline.png: usr/share/icons/hicolor/64x64/apps/wasta-offline.png
     prime:
       - bin/zenity
       - bin/wasta-offline-setup

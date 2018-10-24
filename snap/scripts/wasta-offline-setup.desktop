@@ -1,8 +1,8 @@
 
 [Desktop Entry]
-Name=wasta [Offline] Setup
+Name=wasta [Offline] Setup (snap)
 Comment=Set up a wasta-offline 'local cache repository'
-Exec=wasta-offline-setup
+Exec=test-wasta-offline-setup
 Type=Application
 Icon=wasta-offline
 Categories=GNOME;GTK;System;Utility;
